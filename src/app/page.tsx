@@ -12,7 +12,7 @@ export default async function Example() {
     <div className="px-4 sm:px-6 lg:px-8 h-screen">
       <div className="sm:flex sm:items-center max-w-4xl mx-auto mt-8">
         <div className="sm:flex-auto">
-          <h1 className="text-3xl font-semibold leading-6 text-gray-900">Alert securitaire</h1>
+          <h1 className="text-3xl font-semibold leading-6 text-gray-900">Alert d urgence</h1>
 
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
