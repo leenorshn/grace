@@ -1,81 +1,93 @@
+'use client'
+
+import { useRouter } from "next/navigation"
+import React from "react"
+import { connectUser } from "./api/get-data"
 
 
-import { useEffect, useState } from "react"
-import getAlertData from "./api/get-data";
+export default function Example() {
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const router = useRouter()
+
+    const handleForm = async (event: any) => {
+        event.preventDefault()
+
+        const data = await connectUser(email, password);
+
+        const username = data[0].username
 
 
-export default async function Example() {
 
-  var data = await getAlertData()
+        // else successful
+        return router.push(`/${username}`)
+    }
 
-  return (
-    <div className="px-4 sm:px-6 lg:px-8 h-screen">
-      <div className="sm:flex sm:items-center max-w-4xl mx-auto mt-8">
-        <div className="sm:flex-auto">
-          <h1 className="text-3xl font-semibold leading-6 text-gray-900">Alert d urgence</h1>
+    return (
+        <>
 
-        </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <div>
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                        Alert de Securite
+                        UOR
+                    </h2>
+                </div>
 
-            <select
-              id="location"
-              name="location"
-              className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              defaultValue="Canada"
-            >
-              <option>Tout alert</option>
-              <option>Ambulance</option>
-              <option>Security</option>
-              <option>Corbiare</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div className="mt-8 flow-root max-w-4xl mx-auto">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                      Alert
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Title
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Localisation
-                    </th>
+                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <form className="space-y-6" onSubmit={handleForm}>
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                username
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="text"
+                                    value={email}
+                                    autoComplete="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
+                            </div>
+                        </div>
 
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                      <span className="sr-only">Edit</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {data.map((person, i) => (
-                    <tr key={person.id}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {person?.cause}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.detail ?? ""}</td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.position.toString()}</td>
+                        <div>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Password
+                                </label>
 
-                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                          voir emplacement<span className="sr-only">,</span>
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                            </div>
+                            <div className="mt-2">
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    value={password}
+                                    autoComplete="current-password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <button
+                                type="submit"
+                                className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                            >
+                                Connectez-vous
+                            </button>
+                        </div>
+                    </form>
+
+
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+        </>
+    )
 }
