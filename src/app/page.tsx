@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import React from "react"
 import { connectUser } from "./api/get-data"
-
+///
 
 export default function Example() {
     const [email, setEmail] = React.useState('')
