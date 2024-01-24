@@ -17,6 +17,8 @@ export default function Example() {
   useEffect(() => {
     (async function loadData(params: any) {
       var data = await getAlertData(dashbord)
+      console.log(data);
+
       setNotification([...data])
     })(dashbord)
   })
@@ -63,9 +65,9 @@ export default function Example() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {notification.map((person, i) => (
-                    <tr key={person.id}>
+                    <tr key={i}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {person?.cause}
+                        {person?.title}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.detail ?? ""}</td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.position.toString()}</td>

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import React from "react"
-import { connectUser } from "./api/get-data"
+
 ///
 
 export default function Example() {
@@ -13,14 +13,19 @@ export default function Example() {
     const handleForm = async (event: any) => {
         event.preventDefault()
 
-        const data = await connectUser(email, password);
+        if (email == "grace" && password == "security") {
+            return router.push(`/security`)
+        } else
 
-        const username = data[0].username
-
-
+            if (email == "grace" && password == "ambulance") {
+                return router.push(`/ambulance`)
+            }
+            else {
+                return router.push(`/ambulance`)
+            }
 
         // else successful
-        return router.push(`/${username}`)
+
     }
 
     return (
