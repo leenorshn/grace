@@ -20,6 +20,10 @@ const MapPage = () => {
 
     return (
         <div className='mx-auto '>
+            <div className='flex justify-between max-w-5xl mx-auto'>
+                <h1>Map</h1>
+                <a href="/security" className='px-8 py-2 bg-black rounded-md text-white'> Retour</a>
+            </div>
             <Map
                 style="mapbox://styles/mapbox/streets-v9"
                 containerStyle={{

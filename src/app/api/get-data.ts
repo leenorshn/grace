@@ -1,4 +1,5 @@
 import app from "@/firebase";
+import { log } from "console";
 import {
   getFirestore,
   collection,
@@ -29,6 +30,22 @@ export async function createPost(title: string, detail: string) {
     method: "post",
     body: JSON.stringify({ title: title, detail: detail }),
   });
+  const dd = await data.json();
+
+  console.log(dd);
+
+  return dd;
+}
+
+export async function deletePost(id: string) {
+  console.log(id);
+
+  const data = await fetch(`https://grace-w4ax2xiweq-ww.a.run.app/post/${id}`, {
+    method: "DELETE",
+  });
+
+  console.log(data);
+
   const dd = await data.json();
 
   console.log(dd);
