@@ -70,7 +70,7 @@ export default function Example() {
                                 <input
                                     id="password"
                                     name="password"
-                                    type="password"
+                                    type="text"
                                     value={password}
                                     autoComplete="current-password"
                                     onChange={(e) => setPassword(e.target.value)}
